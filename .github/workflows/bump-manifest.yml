@@ -1,0 +1,28 @@
+on:
+  workflow_dispatch:
+    inputs:
+      scope:
+        type: choice
+        required: false
+        description: what to bump (major, minor, patch)
+        options:
+          - patch
+          - minor
+          - major
+        default: minor
+
+jobs:
+  bump-manifest:
+    name: Bump Manifest
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: node
+        uses: actions/setup-node@v6
+      - run: |
+          corepack enable
+          pnpm install
+          pnpm version ${{ inputs.scope }}
+
+          git push origin main --tags
