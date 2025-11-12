@@ -1,10 +1,6 @@
 on:
   workflow_dispatch:
     inputs:
-      tag:
-        type: string
-        required: false
-        description: the desired tag to push 
       scope:
         type: choice
         required: false
@@ -34,5 +30,5 @@ jobs:
 
       - name: Bump
         run: |
-          npm version ${{ inputs.tag || inputs.scope }}
+          npm version ${{ inputs.scope }}
           git push origin main --tags
