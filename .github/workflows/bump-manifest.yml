@@ -17,6 +17,8 @@ jobs:
   bump-manifest:
     name: Bump Manifest
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       - name: checkout
         uses: actions/checkout@v4
