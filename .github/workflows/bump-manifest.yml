@@ -41,4 +41,4 @@ jobs:
         run: |
           TAG="${{ steps.bump.outputs.tag }}"
           RELEASE_URL="$(gh release create "$TAG" --generate-notes --latest)"
-          echo "Released [$TAG]($RELEASE_URL)"
+          echo "Released [$TAG]($RELEASE_URL)" >> $GITHUB_STEP_SUMMARY
