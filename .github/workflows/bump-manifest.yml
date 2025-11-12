@@ -39,4 +39,6 @@ jobs:
 
       - name: Create Release
         run: |
-          gh release create "${{ steps.bump.outputs.tag }}" --generate-notes --latest
+          TAG="${{ steps.bump.outputs.tag }}"
+          RELEASE_URL="$(gh release create "$TAG" --generate-notes --latest)"
+          echo "Released [$TAG]($RELEASE_URL)"
