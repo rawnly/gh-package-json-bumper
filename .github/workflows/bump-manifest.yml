@@ -1,5 +1,9 @@
 on:
   workflow_dispatch:
+    tag:
+      type: string
+      required: false
+      description: the desired tag to push 
     inputs:
       scope:
         type: choice
@@ -30,8 +34,5 @@ jobs:
 
       - name: Bump
         run: |
-          corepack enable
-          pnpm install
-          pnpm version ${{ inputs.scope }}
-
+          npm version ${{ inputs.tag || inputs.scope }}
           git push origin main --tags
