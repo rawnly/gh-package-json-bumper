@@ -29,6 +29,12 @@ jobs:
           git config --local user.name "GitHub Actions [Bot]"
 
       - name: Bump
+        id: bump
         run: |
-          npm version ${{ inputs.scope }}
-          git push origin main --tags
+          NEW_TAG=$(npm version ${{ inputs.scope }} --tag-version-prefix '')
+          git push origin main "${NEW_TAG}"
+          echo "tag=${NEW_TAG}" >> "$GITHUB_OUTPUT"
+
+      - name: Create Release
+        run: |
+          gh release create "${{ steps.bump.outputs.tag }}" --generate-notes --latest
