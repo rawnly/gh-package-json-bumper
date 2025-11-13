@@ -34,7 +34,7 @@ jobs:
         id: bump
         run: |
           NEW_TAG=$(npm version ${{ inputs.scope }} --tag-version-prefix '')
-          git push origin main "${NEW_TAG}"
+          git push origin ${{ github.ref }} "${NEW_TAG}"
           echo "tag=${NEW_TAG}" >> "$GITHUB_OUTPUT"
 
       - name: Create Release
